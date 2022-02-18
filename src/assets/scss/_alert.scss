@@ -16,7 +16,6 @@
       line-height: 1;
       background-color: rgba(#fff, .1);
       margin: -1rem 0 -1rem -1rem;
-      float: left;
     }
   }
 }
@@ -24,7 +23,7 @@
 #toastContainer {
   position: fixed;
   right: $main-padding;
-  bottom: $main-padding;
+  top: $main-padding;
   width: $toast-width;
   max-width: 100%;
   z-index: 9;

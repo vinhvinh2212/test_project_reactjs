@@ -1,20 +1,12 @@
 import React from "react";
-import AuthLayoutUser from "./layouts/PrivateRoute/PrivateRoute";
+import PublicRoute from "./layouts/PublicRoute/PublicRoute";
 
 import Login from "./pages/LoginPage/Login.component";
-import MainMenu from "./pages/MainMenu/MainMenu.component";
-import BlogPage from "./pages/BlogPage/BlogPage.component";
 import PageNotFound from "./pages/PageNotFound/PageNotFound.component";
 
 import { history } from "constants/history";
 
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Router,
-  Redirect
-} from "react-router-dom";
+import { BrowserRouter, Switch, Route, Router } from "react-router-dom";
 import { connect } from "react-redux";
 import { clear } from "./redux/alert/alert.actions";
 
@@ -36,19 +28,17 @@ class App extends React.Component {
       <BrowserRouter forceRefresh={true}>
         <Router history={history}>
           <Switch>
-            <Route
+            {/* <Route
               exact
               path="/"
               render={() => {
                 return <Redirect to="/blog" />;
               }}
-            />
+            /> */}
             {/* Authentication Pages */}
             <Route path="/login/:hospital" component={Login} />
             {/* Dashboard Pages */}
-            <AuthLayoutUser path="/mainmenu" component={MainMenu} />
-            <Route path="/blog" component={BlogPage} />
-
+            <Route path="/" component={PublicRoute} />
             <Route path="*" component={PageNotFound} />
             <Route path="/404" component={PageNotFound} />
           </Switch>
