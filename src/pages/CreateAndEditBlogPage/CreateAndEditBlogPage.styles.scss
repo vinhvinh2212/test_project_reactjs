@@ -1,0 +1,8 @@
+$viewport_tablet: 991px;
+$viewport_mobile: 767px;
+.img-thumbnail-custom {
+  width: 50%;
+  @media (max-width: $viewport_tablet) {
+    width: 100%;
+  }
+}

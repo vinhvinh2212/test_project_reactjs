@@ -2,7 +2,7 @@ import React from "react";
 // import Toast from "patterns/Toast";
 import { Loading, Finish } from "patterns/Loader";
 import { Toast } from "patterns/Toast";
-import { Pagination } from "components/Pagination/pagination.component";
+import { Pagination } from "components/Pagination/Pagination.component";
 import { connect } from "react-redux";
 
 // import { setUserInfo, setHospital } from "../../redux/user/user.actions";
@@ -11,6 +11,7 @@ import BlogService from "services/blog.service";
 
 import "./BlogPage.styles.scss";
 import Blog from "components/Blog/Blog.component";
+import { Link } from "react-router-dom";
 
 class BlogPage extends React.Component {
   constructor(props) {
@@ -50,12 +51,10 @@ class BlogPage extends React.Component {
     Loading();
     BlogService.getBlogsService(this.state.searchFilter)
       .then((result) => {
-        console.log("result: ", result);
         this.setState({ blogsData: result.data.data, pagy: result.data.pagy });
         Toast("success", "成功");
       })
       .catch((err) => {
-        console.log("err: ", err.response.data);
         Toast("error", "エラーが発生しました。");
       })
       .finally(() => Finish());
@@ -75,7 +74,7 @@ class BlogPage extends React.Component {
       <div className="container">
         <div className="search">
           <div className="form-row">
-            <div className="form-group col-md-6">
+            <div className="form-group col-md-4">
               <input
                 type="text"
                 className="form-control"
@@ -110,13 +109,21 @@ class BlogPage extends React.Component {
                 <option value="desc">desc</option>
               </select>
             </div>
-            <div className="form-group col-md-2">
+            <div className="form-group col-md-3">
               <button
                 onClick={() => this.onPageChange(1)}
                 className="btn btn-primary"
               >
                 Search
               </button>
+              <Link to="/blog/create">
+                <button
+                  className="btn btn-primary"
+                  style={{ marginLeft: "10px" }}
+                >
+                  Create
+                </button>
+              </Link>
             </div>
           </div>
         </div>

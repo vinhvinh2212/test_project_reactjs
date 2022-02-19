@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
+import "./Pagination.styles.scss";
 
 export const Pagination = ({ total, pageLimit, dataLimit, onPageChange }) => {
   const [pages, setPages] = useState(Math.round(total / dataLimit));
   const [currentPage, setCurrentPage] = useState(1);
+  const [isChangePage, setIsChangePage] = useState(false);
   const goToNextPage = () => {
+    setIsChangePage(true);
     setCurrentPage((page) => page + 1);
   };
   const goToPreviousPage = () => {
+    setIsChangePage(true);
     setCurrentPage((page) => page - 1);
   };
   const changePage = (event) => {
+    setIsChangePage(true);
     const pageNumber = Number(event.target.textContent);
     setCurrentPage(pageNumber);
   };
@@ -20,15 +25,18 @@ export const Pagination = ({ total, pageLimit, dataLimit, onPageChange }) => {
   };
 
   useEffect(() => {
-    onPageChange(currentPage);
-  }, [onPageChange, currentPage]);
+    if (isChangePage) {
+      onPageChange(currentPage);
+      setIsChangePage(false);
+    }
+  }, [onPageChange, currentPage, isChangePage]);
 
   useEffect(() => {
     setPages(Math.round(total / dataLimit));
   }, [dataLimit, pages, total]);
 
   return (
-    <div style={{ float: "right" }}>
+    <div className="pagination-custom">
       <nav aria-label="Page navigation example">
         <ul className="pagination">
           <li
@@ -42,7 +50,7 @@ export const Pagination = ({ total, pageLimit, dataLimit, onPageChange }) => {
             if (pages < item) return null;
             return (
               <li
-                className={`page-item paginationItem ${
+                className={`page-item ${
                   currentPage === item ? "active" : null
                 }`}
                 key={index}

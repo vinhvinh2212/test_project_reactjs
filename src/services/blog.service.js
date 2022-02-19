@@ -17,6 +17,9 @@ const API_LIST = {
 const BlogService = {
   getBlogsService(params) {
     return axios.get(API_LIST.API_GET_BLOGS, { params });
+  },
+  createBlogService(params) {
+    return axios.post(API_LIST.API_GET_BLOGS, params);
   }
 };
 

@@ -1,8 +1,10 @@
 import React from "react";
 import "./PublicRoute.scss";
 
-import { Route, Switch } from "react-router-dom";
+import { Link, Route, Switch } from "react-router-dom";
 import BlogPageComponent from "pages/BlogPage/BlogPage.component";
+import CreateAndEditBlogPageComponent from "pages/CreateAndEditBlogPage/CreateAndEditBlogPage.component";
+import Footer from "components/Footer/Footer.component";
 
 const PublicRoute = ({ match }) => {
   return (
@@ -14,7 +16,9 @@ const PublicRoute = ({ match }) => {
             <div className="row">
               <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div className="page-caption">
-                  <h1 className="page-title">Blog Information</h1>
+                  <Link to="/blog">
+                    <h1 className="page-title">Blog Information</h1>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -36,7 +40,6 @@ const PublicRoute = ({ match }) => {
                     </p>
                   </div>
                   {/* /.section-title */}
-                  
                 </div>
               </div>
             </div>
@@ -47,7 +50,7 @@ const PublicRoute = ({ match }) => {
             </div>
           </div>
         </div>
-        <div>
+        <div style={{ marginBottom: "50px" }}>
           <Switch>
             <Route
               exact
@@ -56,11 +59,22 @@ const PublicRoute = ({ match }) => {
             ></Route>
             <Route
               exact
-              path={`${match.path}blog/:id`}
+              path={`${match.path}blog/create`}
+              component={CreateAndEditBlogPageComponent}
+            ></Route>
+            <Route
+              exact
+              path={`${match.path}blog/edit/:blogID`}
+              component={CreateAndEditBlogPageComponent}
+            ></Route>
+            <Route
+              exact
+              path={`${match.path}blog/detail/:blogID`}
               component={BlogPageComponent}
             ></Route>
           </Switch>
         </div>
+        <Footer></Footer>
       </div>
     </div>
   );
