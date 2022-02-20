@@ -12,6 +12,7 @@
     "react/react-in-jsx-scope": "off",
     "indent": "off"
   },
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 2021,
     "sourceType": "module",
