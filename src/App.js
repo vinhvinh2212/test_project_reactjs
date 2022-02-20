@@ -34,6 +34,8 @@ class App extends React.Component {
       <BrowserRouter forceRefresh={true}>
         <Router history={history}>
           <Switch>
+            {/* Authentication Pages */}
+            <Route exact path="/login" component={Login} />
             <Route
               exact
               path="/"
@@ -41,10 +43,7 @@ class App extends React.Component {
                 return <Redirect to="/blog" />;
               }}
             />
-            {/* Authentication Pages */}
-            <Route path="/login/:hospital" component={Login} />
-            {/* Dashboard Pages */}
-            <Route path="/" component={PublicRoute} />
+            <Route path="/blog" component={PublicRoute} />
             <Route path="*" component={PageNotFound} />
             <Route path="/404" component={PageNotFound} />
           </Switch>

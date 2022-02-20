@@ -11,7 +11,7 @@ const API_LIST = {
   API_GET_BLOGS: "/api/v1/blogs",
   APT_GET_BLOG_DETAIL_BY_ID: "/api/v1/blogs/",
   API_UPDATE_BLOG_BY_ID: "/api/v1/blogs/",
-  API_DELETE_BLOG: "/api/v1/blogs"
+  API_DELETE_BLOG: "/api/v1/blogs/"
 };
 
 const BlogService = {
@@ -22,10 +22,13 @@ const BlogService = {
     return axios.get(API_LIST.APT_GET_BLOG_DETAIL_BY_ID + params.id);
   },
   createBlogService(params) {
-    return axios.post(API_LIST.API_CREATE_BLOG + params.id, params);
+    return axios.post(API_LIST.API_CREATE_BLOG, params);
   },
   updateBlogService(params) {
     return axios.put(API_LIST.API_UPDATE_BLOG_BY_ID + params.id, params);
+  },
+  deleteBlogService(params) {
+    return axios.delete(API_LIST.API_DELETE_BLOG + params.id);
   }
 };
 

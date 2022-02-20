@@ -58,22 +58,22 @@ const PublicRoute = ({ match }) => {
           <Switch>
             <Route
               exact
-              path={`${match.path}blog`}
+              path={`${match.path}`}
               component={BlogPageComponent}
             ></Route>
             <Route
               exact
-              path={`${match.path}blog/create`}
+              path={`${match.path}/create`}
               component={CreateAndEditBlogPageComponent}
             ></Route>
             <Route
               exact
-              path={`${match.path}blog/edit/:blogID`}
+              path={`${match.path}/edit/:blogID`}
               component={CreateAndEditBlogPageComponent}
             ></Route>
             <Route
               exact
-              path={`${match.path}blog/detail/:blogID`}
+              path={`${match.path}/detail/:blogID`}
               component={BlogDetail}
             ></Route>
           </Switch>

@@ -1,20 +1,47 @@
-import React from "react";
+import moment from "moment";
+import { Finish } from "patterns/Loader";
+import { Loading } from "patterns/Loader";
+import Toast from "patterns/Toast";
+import React, { useEffect, useState } from "react";
+import BlogService from "services/blog.service";
 
-const BlogDetail = () => {
+const BlogDetail = ({ match }) => {
+  const [blogID] = useState(match.params.blogID);
+  const [blog, setBlog] = useState(null);
+
+  useEffect(() => {
+    getBlogDetail(blogID);
+  }, [blogID]);
+
+  const getBlogDetail = (id) => {
+    Loading();
+    BlogService.getBlogDetailService({ id: id })
+      .then((result) => {
+        console.log(result);
+        setBlog(result.data);
+      })
+      .catch((err) => {
+        Toast("danger", "エラーが発生しました。");
+      })
+      .finally(() => Finish());
+  };
   return (
     <div className="container blog-main">
       <h3 className="pb-4 mb-4 font-italic border-bottom">
         Blog Detail Information
       </h3>
       <div className="blog-post">
-        <h2 className="blog-post-title">Sample blog post</h2>
-        <p className="blog-post-meta">January 1, 2014 by Someone</p>
-        <p>
-          This blog post shows a few different types of content that’s supported
-          and styled with Bootstrap. Basic typography, images, and code are all
-          supported.
+        <h2 className="blog-post-title">{blog?.title}</h2>
+        <p className="blog-post-meta">
+          {moment(blog?.created_at).format("DD/MM/YYYY")} by Someone
         </p>
+        <p>{blog?.content}</p>
         <hr />
+        <img
+          className="img-thumbnail img-thumbnail-custom rounded mx-auto d-block"
+          src={blog?.image.url}
+          alt="img"
+        />
         <p>
           Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
           ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia

@@ -1,13 +1,10 @@
 import React from "react";
-// import Toast from "patterns/Toast";
 import { Loading, Finish } from "patterns/Loader";
 import { Toast } from "patterns/Toast";
 import { history } from "constants/history";
 
-// import { setUserInfo, setHospital } from "../../redux/user/user.actions";
 import BlogService from "services/blog.service";
 import { required, imageValidate, checkValidate } from "Utils/validate";
-// import { danger } from "redux/alert/alert.actions";
 
 import "./CreateAndEditBlogPage.styles.scss";
 import DeleteBlogButton from "components/DeleteBlogButton/DeleteBlogButton.component";
@@ -70,7 +67,7 @@ class CreateAndEditBlogPage extends React.Component {
         });
       })
       .catch((err) => {
-        Toast("error", "エラーが発生しました。");
+        Toast("danger", err.response.data.error);
       })
       .finally(() => Finish());
   };
@@ -90,7 +87,7 @@ class CreateAndEditBlogPage extends React.Component {
         history.push("/blog");
       })
       .catch((err) => {
-        Toast("error", "エラーが発生しました。");
+        Toast("danger", err.response.data.error);
       })
       .finally(() => Finish());
   };
@@ -112,7 +109,7 @@ class CreateAndEditBlogPage extends React.Component {
         history.push("/blog");
       })
       .catch((err) => {
-        Toast("error", "エラーが発生しました。");
+        Toast("danger", err.response.data.error);
       })
       .finally(() => Finish());
   };
@@ -148,7 +145,7 @@ class CreateAndEditBlogPage extends React.Component {
       blogID
     } = this.state;
     return (
-      <div className="container">
+      <div className="container border-box-custom">
         <h2 style={{ textAlign: "center" }}>{statusPage} Blog</h2>
         <form>
           <div className="form-group">

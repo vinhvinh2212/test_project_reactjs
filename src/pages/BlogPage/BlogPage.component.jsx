@@ -56,7 +56,7 @@ class BlogPage extends React.Component {
         // Toast("success", "成功");
       })
       .catch((err) => {
-        Toast("error", "エラーが発生しました。");
+        Toast("danger", "エラーが発生しました。");
       })
       .finally(() => Finish());
   };
@@ -68,6 +68,11 @@ class BlogPage extends React.Component {
         this.getBlogsData();
       }
     );
+  };
+  onKeyUp = (event) => {
+    if (event.charCode === 13) {
+      this.onPageChange(1);
+    }
   };
 
   render() {
@@ -83,6 +88,7 @@ class BlogPage extends React.Component {
                 name="search"
                 value={this.state.searchFilter.search}
                 onChange={this.handleChangeFilter}
+                onKeyPress={this.onKeyUp}
               />
             </div>
             <div className="form-group col-md-2">
