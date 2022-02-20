@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./Pagination.styles.scss";
+import "./PaginationCustom.styles.scss";
 
-export const Pagination = ({ totalPages, pageLimit, onPageChange, currentAtPage }) => {
+export const PaginationCustom = ({ totalPages, pageLimit, onPageChange, currentAtPage }) => {
   const [pages, setPages] = useState(totalPages);
   const [currentPage, setCurrentPage] = useState(currentAtPage);
   const [isChangePage, setIsChangePage] = useState(false);
@@ -71,4 +71,4 @@ export const Pagination = ({ totalPages, pageLimit, onPageChange, currentAtPage 
   );
 };
 
-export default Pagination;
+export default PaginationCustom;

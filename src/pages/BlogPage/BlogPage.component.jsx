@@ -1,7 +1,7 @@
 import React from "react";
 import { Loading, Finish } from "patterns/Loader";
 import { Toast } from "patterns/Toast";
-import Pagination from "components/Pagination/Pagination.component";
+import PaginationCustom from "components/PaginationCustom/PaginationCustom.component";
 import BlogService from "services/blog.service";
 import "./BlogPage.styles.scss";
 import Blog from "components/Blog/Blog.component";
@@ -140,14 +140,14 @@ class BlogPage extends React.Component {
             ></Blog>
           ))}
         {this.state.pagy.pages !== 1 ? (
-          <Pagination
+          <PaginationCustom
             total={this.state.pagy.count}
             totalPages={this.state.pagy.pages}
             currentAtPage={this.state.searchFilter.page}
             pageLimit={10}
             dataLimit={20}
             onPageChange={this.onPageChange}
-          ></Pagination>
+          ></PaginationCustom>
         ) : null}
       </div>
     );
