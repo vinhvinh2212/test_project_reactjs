@@ -6,7 +6,13 @@ import PageNotFound from "./pages/PageNotFound/PageNotFound.component";
 
 import { history } from "constants/history";
 
-import { BrowserRouter, Switch, Route, Router } from "react-router-dom";
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Router,
+  Redirect
+} from "react-router-dom";
 import { connect } from "react-redux";
 import { clear } from "./redux/alert/alert.actions";
 
@@ -28,13 +34,13 @@ class App extends React.Component {
       <BrowserRouter forceRefresh={true}>
         <Router history={history}>
           <Switch>
-            {/* <Route
+            <Route
               exact
               path="/"
               render={() => {
                 return <Redirect to="/blog" />;
               }}
-            /> */}
+            />
             {/* Authentication Pages */}
             <Route path="/login/:hospital" component={Login} />
             {/* Dashboard Pages */}

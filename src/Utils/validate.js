@@ -6,7 +6,7 @@ function required(val) {
 }
 
 function imageValidate(file) {
-  if (!file) return false;
+  if (!file) return true;
   var t = file.type.split("/").pop().toLowerCase();
   if (t != "jpeg" && t != "jpg" && t != "png" && t != "bmp" && t != "gif") {
     return false;

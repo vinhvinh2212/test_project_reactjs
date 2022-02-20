@@ -17,6 +17,7 @@ class CreateAndEditBlogPage extends React.Component {
 
     this.state = {
       statusPage: this.props.match.path === "/blog/create" ? "Create" : "Edit",
+      blogID: this.props.match.params.blogID || "",
       title: "",
       content: "",
       image: "",
@@ -28,7 +29,13 @@ class CreateAndEditBlogPage extends React.Component {
     console.log(this.props.match.path);
   }
 
-  componentDidMount = () => {};
+  componentDidMount = () => {
+    const { statusPage, blogID } = this.state;
+    if (statusPage === "Edit") {
+      console.log(this.props.match.params.blogID);
+      this.getBlogDetail(blogID);
+    }
+  };
   handleChange = (event) => {
     const { value, name } = event.target;
     this.setState({ [name]: value, isSubmit: false });
@@ -52,10 +59,24 @@ class CreateAndEditBlogPage extends React.Component {
       this.setState({ [name]: "", imageURL: "", isSubmit: false });
     }
   };
+  getBlogDetail = (id) => {
+    Loading();
+    BlogService.getBlogDetailService({ id: id })
+      .then((result) => {
+        this.setState({
+          title: result.data.title,
+          content: result.data.content,
+          imageURL: result.data.image.url
+        });
+      })
+      .catch((err) => {
+        Toast("error", "エラーが発生しました。");
+      })
+      .finally(() => Finish());
+  };
 
   createBlog = () => {
     if (!this.validation()) return;
-    console.log("Validate Success: ");
     const { title, content, imageURL } = this.state;
     let params = {
       title: title,
@@ -67,6 +88,27 @@ class CreateAndEditBlogPage extends React.Component {
       .then((result) => {
         Toast("success", "成功");
         history.push("/blog");
+      })
+      .catch((err) => {
+        Toast("error", "エラーが発生しました。");
+      })
+      .finally(() => Finish());
+  };
+  updateBlog = () => {
+    if (!this.validation()) return;
+    const { blogID, title, content, imageURL } = this.state;
+    let params = {
+      id: blogID,
+      title: title,
+      content: content,
+      image: imageURL
+    };
+    Loading();
+    BlogService.updateBlogService(params)
+      .then((result) => {
+        console.log("update blog: ", result);
+        Toast("success", "成功");
+        // history.push("/blog");
       })
       .catch((err) => {
         Toast("error", "エラーが発生しました。");
@@ -94,16 +136,23 @@ class CreateAndEditBlogPage extends React.Component {
   };
 
   render() {
-    const { isSubmit, validation } = this.state;
+    const {
+      title,
+      content,
+      imageURL,
+      isSubmit,
+      validation,
+      statusPage,
+      image
+    } = this.state;
     return (
       <div className="container">
-        <h2 style={{ textAlign: "center" }}>{this.state.statusPage} Blog</h2>
+        <h2 style={{ textAlign: "center" }}>{statusPage} Blog</h2>
         <form>
           <div className="form-group">
             <label htmlFor="exampleFormControlInput1">Blog title</label>
             <input
-              type="email"
-              // className="form-control is-invalid"
+              type="text"
               className={`form-control ${
                 isSubmit && validation.title?.required === false
                   ? "is-invalid"
@@ -113,6 +162,7 @@ class CreateAndEditBlogPage extends React.Component {
                   ? "is-valid"
                   : null
               }`}
+              value={title}
               name="title"
               onChange={this.handleChange}
               placeholder="Blog title"
@@ -133,6 +183,7 @@ class CreateAndEditBlogPage extends React.Component {
               }`}
               rows="3"
               name="content"
+              value={content}
               onChange={this.handleChange}
             ></textarea>
             <div className="invalid-feedback">
@@ -161,7 +212,7 @@ class CreateAndEditBlogPage extends React.Component {
                 className="custom-file-label"
                 htmlFor="validatedCustomFile"
               >
-                {this.state.image ? this.state.image.name : "Choose file..."}
+                {image ? image.name : "Choose file..."}
               </label>
               <div className="invalid-feedback">
                 {validation.image?.message}
@@ -169,10 +220,10 @@ class CreateAndEditBlogPage extends React.Component {
             </div>
           </div>
           <div className="form-group">
-            {this.state.image && (
+            {(image || statusPage === "Edit") && (
               <img
                 className="img-thumbnail img-thumbnail-custom"
-                src={this.state.imageURL}
+                src={imageURL}
                 alt="img"
               />
             )}
@@ -183,7 +234,9 @@ class CreateAndEditBlogPage extends React.Component {
             className="btn btn-primary"
             onClick={() => {
               this.setState({ isSubmit: true }, () => {
-                this.createBlog();
+                if (statusPage === "Edit") {
+                  this.updateBlog();
+                } else this.createBlog();
               });
             }}
           >

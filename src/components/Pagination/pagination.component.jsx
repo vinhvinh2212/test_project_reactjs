@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
 import "./Pagination.styles.scss";
 
-export const Pagination = ({ total, pageLimit, dataLimit, onPageChange }) => {
-  const [pages, setPages] = useState(Math.round(total / dataLimit));
-  const [currentPage, setCurrentPage] = useState(1);
+export const Pagination = ({
+  totalPages,
+  pageLimit,
+  onPageChange,
+  currentAtPage
+}) => {
+  const [pages, setPages] = useState(totalPages);
+  const [currentPage, setCurrentPage] = useState(currentAtPage);
   const [isChangePage, setIsChangePage] = useState(false);
   const goToNextPage = () => {
     setIsChangePage(true);
     setCurrentPage((page) => page + 1);
   };
+  
   const goToPreviousPage = () => {
     setIsChangePage(true);
     setCurrentPage((page) => page - 1);
   };
+
   const changePage = (event) => {
     setIsChangePage(true);
     const pageNumber = Number(event.target.textContent);
@@ -32,8 +39,12 @@ export const Pagination = ({ total, pageLimit, dataLimit, onPageChange }) => {
   }, [onPageChange, currentPage, isChangePage]);
 
   useEffect(() => {
-    setPages(Math.round(total / dataLimit));
-  }, [dataLimit, pages, total]);
+    setPages(totalPages);
+  }, [totalPages]);
+
+  useEffect(() => {
+    setCurrentPage(currentAtPage);
+  }, [currentAtPage]);
 
   return (
     <div className="pagination-custom">
@@ -47,6 +58,7 @@ export const Pagination = ({ total, pageLimit, dataLimit, onPageChange }) => {
             </button>
           </li>
           {getPaginationGroup().map((item, index) => {
+            console.log("Page and item: ", getPaginationGroup(), pages, item);
             if (pages < item) return null;
             return (
               <li

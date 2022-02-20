@@ -20,7 +20,8 @@ class BlogPage extends React.Component {
     this.state = {
       blogsData: [],
       pagy: {
-        count: 0
+        count: 0,
+        pages: 0
       },
 
       searchFilter: {
@@ -52,7 +53,7 @@ class BlogPage extends React.Component {
     BlogService.getBlogsService(this.state.searchFilter)
       .then((result) => {
         this.setState({ blogsData: result.data.data, pagy: result.data.pagy });
-        Toast("success", "成功");
+        // Toast("success", "成功");
       })
       .catch((err) => {
         Toast("error", "エラーが発生しました。");
@@ -132,6 +133,7 @@ class BlogPage extends React.Component {
           this.state.blogsData.map((item) => (
             <Blog
               key={item.id}
+              id={item.id}
               image={item.image}
               title={item.title}
               content={item.content}
@@ -140,6 +142,8 @@ class BlogPage extends React.Component {
         {this.state.pagy.pages !== 1 ? (
           <Pagination
             total={this.state.pagy.count}
+            totalPages={this.state.pagy.pages}
+            currentAtPage={this.state.searchFilter.page}
             pageLimit={10}
             dataLimit={20}
             onPageChange={this.onPageChange}
