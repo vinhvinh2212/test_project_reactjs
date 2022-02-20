@@ -1,7 +1,7 @@
 import React from "react";
 import { Loading, Finish } from "patterns/Loader";
 import { Toast } from "patterns/Toast";
-import { Pagination } from "components/Pagination/Pagination.component";
+import Pagination from "components/Pagination/Pagination.component";
 import BlogService from "services/blog.service";
 import "./BlogPage.styles.scss";
 import Blog from "components/Blog/Blog.component";
