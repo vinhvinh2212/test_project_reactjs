@@ -20,7 +20,7 @@ const BlogDetail = ({ match }) => {
         console.log(result);
         setBlog(result.data);
       })
-      .catch((err) => {
+      .catch(() => {
         Toast("danger", "エラーが発生しました。");
       })
       .finally(() => Finish());

@@ -104,7 +104,6 @@ class CreateAndEditBlogPage extends React.Component {
     Loading();
     BlogService.updateBlogService(params)
       .then((result) => {
-        console.log("update blog: ", result);
         Toast("success", "成功");
         history.push("/blog");
       })

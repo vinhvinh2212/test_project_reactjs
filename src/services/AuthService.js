@@ -21,7 +21,7 @@ const AuthService = {
 
         return true;
       })
-      .catch((error) => {
+      .catch(() => {
         return false;
       });
   },

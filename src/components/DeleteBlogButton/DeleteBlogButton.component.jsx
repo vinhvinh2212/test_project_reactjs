@@ -14,11 +14,11 @@ export const DeleteBlogButton = ({ blogID }) => {
     if (window.confirm("Do you want to delete this blog?") === true) {
       Loading();
       BlogService.deleteBlogService({ id: blogID })
-        .then((result) => {
+        .then(() => {
           Toast("success", "Delete Sucess");
           history.push("/blog");
         })
-        .catch((err) => {
+        .catch(() => {
           Toast("danger", "Delete Fail");
         })
         .finally(() => Finish());

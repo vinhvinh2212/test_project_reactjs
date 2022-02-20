@@ -7,26 +7,26 @@ const INITIAL_STATE = {
 };
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case UserActionTypes.SET_USER:
-      return {
-        ...state,
-        user: action.payload.user,
-        loggedIn: action.payload.loggedIn,
-        hospitalCode: action.payload.hospitalCode
-      };
-    case UserActionTypes.SET_HOSPITAL_CODE:
-      return {
-        ...state,
-        hospitalCode: action.payload
-      };
+  case UserActionTypes.SET_USER:
+    return {
+      ...state,
+      user: action.payload.user,
+      loggedIn: action.payload.loggedIn,
+      hospitalCode: action.payload.hospitalCode
+    };
+  case UserActionTypes.SET_HOSPITAL_CODE:
+    return {
+      ...state,
+      hospitalCode: action.payload
+    };
 
-    case UserActionTypes.LOG_OUT_USER:
-      return {
-        ...INITIAL_STATE
-      };
+  case UserActionTypes.LOG_OUT_USER:
+    return {
+      ...INITIAL_STATE
+    };
 
-    default:
-      return state;
+  default:
+    return state;
   }
 };
 
