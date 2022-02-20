@@ -3,7 +3,7 @@
   "name": "test",
   "version": "0.1.0",
   "engines": {
-    "node": "16.14.0",
+    "node": "12.x",
     "npm": "8.5.0"
   },
   "private": true,
