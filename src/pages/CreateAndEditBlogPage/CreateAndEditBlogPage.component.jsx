@@ -10,6 +10,7 @@ import { required, imageValidate, checkValidate } from "Utils/validate";
 // import { danger } from "redux/alert/alert.actions";
 
 import "./CreateAndEditBlogPage.styles.scss";
+import DeleteBlogButton from "components/DeleteBlogButton/DeleteBlogButton.component";
 
 class CreateAndEditBlogPage extends React.Component {
   constructor(props) {
@@ -26,13 +27,11 @@ class CreateAndEditBlogPage extends React.Component {
       validation: {},
       imageURL: ""
     };
-    console.log(this.props.match.path);
   }
 
   componentDidMount = () => {
     const { statusPage, blogID } = this.state;
     if (statusPage === "Edit") {
-      console.log(this.props.match.params.blogID);
       this.getBlogDetail(blogID);
     }
   };
@@ -59,6 +58,7 @@ class CreateAndEditBlogPage extends React.Component {
       this.setState({ [name]: "", imageURL: "", isSubmit: false });
     }
   };
+
   getBlogDetail = (id) => {
     Loading();
     BlogService.getBlogDetailService({ id: id })
@@ -94,6 +94,7 @@ class CreateAndEditBlogPage extends React.Component {
       })
       .finally(() => Finish());
   };
+
   updateBlog = () => {
     if (!this.validation()) return;
     const { blogID, title, content, imageURL } = this.state;
@@ -108,7 +109,7 @@ class CreateAndEditBlogPage extends React.Component {
       .then((result) => {
         console.log("update blog: ", result);
         Toast("success", "成功");
-        // history.push("/blog");
+        history.push("/blog");
       })
       .catch((err) => {
         Toast("error", "エラーが発生しました。");
@@ -143,7 +144,8 @@ class CreateAndEditBlogPage extends React.Component {
       isSubmit,
       validation,
       statusPage,
-      image
+      image,
+      blogID
     } = this.state;
     return (
       <div className="container">
@@ -242,6 +244,9 @@ class CreateAndEditBlogPage extends React.Component {
           >
             Save
           </button>
+          {statusPage === "Edit" && (
+            <DeleteBlogButton blogID={blogID}></DeleteBlogButton>
+          )}
         </div>
       </div>
     );

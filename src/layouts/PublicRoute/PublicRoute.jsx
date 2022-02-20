@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./PublicRoute.scss";
 
 import { Link, Route, Switch } from "react-router-dom";
 import BlogPageComponent from "pages/BlogPage/BlogPage.component";
 import CreateAndEditBlogPageComponent from "pages/CreateAndEditBlogPage/CreateAndEditBlogPage.component";
 import Footer from "components/Footer/Footer.component";
+import BlogDetail from "components/BlogDetail/BlogDetail.component";
 
 const PublicRoute = ({ match }) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [match]);
   return (
     <div className="blog-page" style={{ minHeight: "100vh" }}>
       <div>
@@ -70,7 +74,7 @@ const PublicRoute = ({ match }) => {
             <Route
               exact
               path={`${match.path}blog/detail/:blogID`}
-              component={BlogPageComponent}
+              component={BlogDetail}
             ></Route>
           </Switch>
         </div>

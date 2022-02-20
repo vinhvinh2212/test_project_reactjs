@@ -137,6 +137,7 @@ class BlogPage extends React.Component {
               image={item.image}
               title={item.title}
               content={item.content}
+              created_at={item.created_at}
             ></Blog>
           ))}
         {this.state.pagy.pages !== 1 ? (

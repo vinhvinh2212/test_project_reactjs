@@ -14,7 +14,7 @@ export const Pagination = ({
     setIsChangePage(true);
     setCurrentPage((page) => page + 1);
   };
-  
+
   const goToPreviousPage = () => {
     setIsChangePage(true);
     setCurrentPage((page) => page - 1);
@@ -58,7 +58,6 @@ export const Pagination = ({
             </button>
           </li>
           {getPaginationGroup().map((item, index) => {
-            console.log("Page and item: ", getPaginationGroup(), pages, item);
             if (pages < item) return null;
             return (
               <li
