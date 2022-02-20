@@ -72,6 +72,9 @@ a:hover {
   padding-top: 170px;
   padding-bottom: 174px;
 }
+a:hover {
+  text-decoration: none !important;
+}
 .page-title {
   font-size: 46px;
   line-height: 1;
