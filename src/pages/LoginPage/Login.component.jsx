@@ -3,7 +3,7 @@ import React from "react";
 // import { Loading, Finish } from "patterns/Loader";
 import { connect } from "react-redux";
 
-import { setUserInfo, setHospital } from "../../redux/user/user.actions";
+import { setUserInfo } from "../../redux/user/user.actions";
 import { danger } from "redux/alert/alert.actions";
 
 import "./Login.styles.scss";
@@ -13,13 +13,10 @@ class Login extends React.Component {
     super(props);
 
     this.state = {
-      hospital: "",
       username: "",
       password: "",
-      remember: false,
-      hospitalCode: this.props.match.params.hospital || ""
+      remember: false
     };
-    this.props.setHospital(this.props.match.params.hospital);
   }
 
   handleChange = (event) => {
@@ -29,17 +26,12 @@ class Login extends React.Component {
 
   handleCheckboxChange = (event) => {
     const { value, name } = event.target;
-    value === "false"
-      ? this.setState({ [name]: true })
-      : this.setState({ [name]: false });
+    value === "false" ? this.setState({ [name]: true }) : this.setState({ [name]: false });
   };
 
-  isValidatorBlank = (hospital, username, password) => {
+  isValidatorBlank = (username, password) => {
     let flag = false;
-    if (!hospital) {
-      this.props.danger("Please input your hospital!");
-      return flag;
-    }
+
     if (!username) {
       this.props.danger("Please input your username!");
       return flag;
@@ -54,10 +46,9 @@ class Login extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { hospitalCode, username, password } = this.state;
-    if (this.isValidatorBlank(hospitalCode, username, password)) {
+    const { username, password } = this.state;
+    if (this.isValidatorBlank(username, password)) {
       let user = {
-        hospital: hospitalCode,
         username: username,
         remember: false,
         password: password
@@ -119,10 +110,7 @@ class Login extends React.Component {
                     </div>
 
                     {this.props.alert.message ? (
-                      <div
-                        className={`alert ${this.props.alert.type}`}
-                        role="alert"
-                      >
+                      <div className={`alert ${this.props.alert.type}`} role="alert">
                         {this.props.alert.message}
                       </div>
                     ) : (
@@ -130,11 +118,7 @@ class Login extends React.Component {
                     )}
 
                     <div className="col-md-12 text-center ">
-                      <button
-                        type="submit"
-                        className=" btn btn-block mybtn btn-primary tx-tfm"
-                        onClick={this.handleSubmit}
-                      >
+                      <button type="submit" className=" btn btn-block mybtn btn-primary tx-tfm" onClick={this.handleSubmit}>
                         Login
                       </button>
                     </div>
@@ -154,7 +138,6 @@ const mapStateToProps = ({ userReducer, alertReducer }) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
   setUserInfo: (user) => dispatch(setUserInfo(user)),
-  setHospital: (hospitalCode) => dispatch(setHospital(hospitalCode)),
   danger: (message) => dispatch(danger(message))
 });
 

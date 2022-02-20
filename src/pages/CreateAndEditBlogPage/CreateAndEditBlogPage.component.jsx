@@ -134,16 +134,7 @@ class CreateAndEditBlogPage extends React.Component {
   };
 
   render() {
-    const {
-      title,
-      content,
-      imageURL,
-      isSubmit,
-      validation,
-      statusPage,
-      image,
-      blogID
-    } = this.state;
+    const { title, content, imageURL, isSubmit, validation, statusPage, image, blogID } = this.state;
     return (
       <div className="container border-box-custom">
         <h2 style={{ textAlign: "center" }}>{statusPage} Blog</h2>
@@ -152,14 +143,8 @@ class CreateAndEditBlogPage extends React.Component {
             <label htmlFor="exampleFormControlInput1">Blog title</label>
             <input
               type="text"
-              className={`form-control ${
-                isSubmit && validation.title?.required === false
-                  ? "is-invalid"
-                  : null
-              } ${
-                isSubmit && validation.title?.required === true
-                  ? "is-valid"
-                  : null
+              className={`form-control ${isSubmit && validation.title?.required === false ? "is-invalid" : null} ${
+                isSubmit && validation.title?.required === true ? "is-valid" : null
               }`}
               value={title}
               name="title"
@@ -171,61 +156,36 @@ class CreateAndEditBlogPage extends React.Component {
           <div className="form-group">
             <label htmlFor="exampleFormControlInput1">Blog content</label>
             <textarea
-              className={`form-control ${
-                isSubmit && validation.content?.required === false
-                  ? "is-invalid"
-                  : null
-              } ${
-                isSubmit && validation.content?.required === true
-                  ? "is-valid"
-                  : null
+              className={`form-control ${isSubmit && validation.content?.required === false ? "is-invalid" : null} ${
+                isSubmit && validation.content?.required === true ? "is-valid" : null
               }`}
               rows="3"
               name="content"
               value={content}
               onChange={this.handleChange}
             ></textarea>
-            <div className="invalid-feedback">
-              {validation.content?.message}
-            </div>
+            <div className="invalid-feedback">{validation.content?.message}</div>
           </div>
           <div className="form-group ">
             <label htmlFor="exampleFormControlInput1">Blog image</label>
             <div className="custom-file">
               <input
                 type="file"
-                className={`custom-file-input ${
-                  isSubmit && validation.image?.isValidImage === false
-                    ? "is-invalid"
-                    : null
-                } ${
-                  isSubmit && validation.image?.isValidImage === true
-                    ? "is-valid"
-                    : null
+                className={`custom-file-input ${isSubmit && validation.image?.isValidImage === false ? "is-invalid" : null} ${
+                  isSubmit && validation.image?.isValidImage === true ? "is-valid" : null
                 }`}
                 accept="image/*"
                 name="image"
                 onChange={this.handleChangeImage}
               />
-              <label
-                className="custom-file-label"
-                htmlFor="validatedCustomFile"
-              >
+              <label className="custom-file-label" htmlFor="validatedCustomFile">
                 {image ? image.name : "Choose file..."}
               </label>
-              <div className="invalid-feedback">
-                {validation.image?.message}
-              </div>
+              <div className="invalid-feedback">{validation.image?.message}</div>
             </div>
           </div>
           <div className="form-group">
-            {(image || statusPage === "Edit") && (
-              <img
-                className="img-thumbnail img-thumbnail-custom"
-                src={imageURL}
-                alt="img"
-              />
-            )}
+            {(image || statusPage === "Edit") && <img className="img-thumbnail img-thumbnail-custom" src={imageURL} alt="img" />}
           </div>
         </form>
         <div className="form-group">
@@ -241,9 +201,7 @@ class CreateAndEditBlogPage extends React.Component {
           >
             Save
           </button>
-          {statusPage === "Edit" && (
-            <DeleteBlogButton blogID={blogID}></DeleteBlogButton>
-          )}
+          {statusPage === "Edit" && <DeleteBlogButton blogID={blogID}></DeleteBlogButton>}
         </div>
       </div>
     );

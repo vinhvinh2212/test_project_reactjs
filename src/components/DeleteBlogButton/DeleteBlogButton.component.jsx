@@ -25,11 +25,7 @@ export const DeleteBlogButton = ({ blogID }) => {
     }
   };
   return (
-    <button
-      type="button"
-      className="btn-delete btn btn-danger"
-      onClick={confirmDelete}
-    >
+    <button type="button" className="btn-delete btn btn-danger" onClick={confirmDelete}>
       Delete
     </button>
   );

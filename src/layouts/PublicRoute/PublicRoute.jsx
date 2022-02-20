@@ -38,44 +38,23 @@ const PublicRoute = ({ match }) => {
                   {/* section-title */}
                   <div className="section-title mb-0">
                     <h2>All about Blog. We share our knowledge on blog</h2>
-                    <p>
-                      Our approach is very simple: we define your problem and
-                      give the best solution.
-                    </p>
+                    <p>Our approach is very simple: we define your problem and give the best solution.</p>
                   </div>
                   {/* /.section-title */}
                 </div>
               </div>
             </div>
             <div className="row">
-              <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
-                Created for test
-              </div>
+              <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">Created for test</div>
             </div>
           </div>
         </div>
         <div style={{ marginBottom: "50px" }}>
           <Switch>
-            <Route
-              exact
-              path={`${match.path}`}
-              component={BlogPageComponent}
-            ></Route>
-            <Route
-              exact
-              path={`${match.path}/create`}
-              component={CreateAndEditBlogPageComponent}
-            ></Route>
-            <Route
-              exact
-              path={`${match.path}/edit/:blogID`}
-              component={CreateAndEditBlogPageComponent}
-            ></Route>
-            <Route
-              exact
-              path={`${match.path}/detail/:blogID`}
-              component={BlogDetail}
-            ></Route>
+            <Route exact path={`${match.path}`} component={BlogPageComponent}></Route>
+            <Route exact path={`${match.path}/create`} component={CreateAndEditBlogPageComponent}></Route>
+            <Route exact path={`${match.path}/edit/:blogID`} component={CreateAndEditBlogPageComponent}></Route>
+            <Route exact path={`${match.path}/detail/:blogID`} component={BlogDetail}></Route>
           </Switch>
         </div>
         <Footer></Footer>

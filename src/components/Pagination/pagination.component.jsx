@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Pagination.styles.scss";
 
-export const Pagination = ({
-  totalPages,
-  pageLimit,
-  onPageChange,
-  currentAtPage
-}) => {
+export const Pagination = ({ totalPages, pageLimit, onPageChange, currentAtPage }) => {
   const [pages, setPages] = useState(totalPages);
   const [currentPage, setCurrentPage] = useState(currentAtPage);
   const [isChangePage, setIsChangePage] = useState(false);
@@ -50,9 +45,7 @@ export const Pagination = ({
     <div className="pagination-custom">
       <nav aria-label="Page navigation example">
         <ul className="pagination">
-          <li
-            className={`page-item prev ${currentPage === 1 ? "disabled" : ""}`}
-          >
+          <li className={`page-item prev ${currentPage === 1 ? "disabled" : ""}`}>
             <button className="page-link" onClick={goToPreviousPage}>
               Previous
             </button>
@@ -60,21 +53,14 @@ export const Pagination = ({
           {getPaginationGroup().map((item, index) => {
             if (pages < item) return null;
             return (
-              <li
-                className={`page-item ${
-                  currentPage === item ? "active" : null
-                }`}
-                key={index}
-              >
+              <li className={`page-item ${currentPage === item ? "active" : null}`} key={index}>
                 <button className="page-link" onClick={changePage}>
                   {item}
                 </button>
               </li>
             );
           })}
-          <li
-            className={`page-item ${currentPage === pages ? "disabled" : ""}`}
-          >
+          <li className={`page-item ${currentPage === pages ? "disabled" : ""}`}>
             <button className="page-link" onClick={goToNextPage}>
               Next
             </button>

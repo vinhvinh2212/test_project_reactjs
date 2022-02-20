@@ -1,35 +1,38 @@
-import axios from 'configs/axios';
-import CsrfService from './CsrfService';
+import axios from "configs/axios";
+import CsrfService from "./CsrfService";
 
 /**
  * Send login information for authenticate
  */
 const AuthService = {
-	async login(formData) {
-		await CsrfService.CreateCSRFCookie().then(() => {
-			return axios.post("/login", formData);
-		});
-	},
+  async login(formData) {
+    await CsrfService.CreateCSRFCookie().then(() => {
+      return axios.post("/login", formData);
+    });
+  },
 
-	async logout() {
-		await CsrfService.CreateCSRFCookie();
-		
-		axios.post("/logout").then(() => {
-			sessionStorage.setItem("loggedIn", false);
+  async logout() {
+    await CsrfService.CreateCSRFCookie();
 
-			return true;
-		}).catch((error) => {
-			return false;
-		});
-	},
+    axios
+      .post("/logout")
+      .then(() => {
+        sessionStorage.setItem("loggedIn", false);
 
-	getUserInfo() {
-		return axios.get('/api/user');
-	},
+        return true;
+      })
+      .catch((error) => {
+        return false;
+      });
+  },
 
-	isAuthenticated() {
-		return sessionStorage.getItem('loggedIn') === 'true' || false;
-	}
-}
+  getUserInfo() {
+    return axios.get("/api/user");
+  },
+
+  isAuthenticated() {
+    return sessionStorage.getItem("loggedIn") === "true" || false;
+  }
+};
 
 export default AuthService;

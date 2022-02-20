@@ -1,18 +1,9 @@
 import React from "react";
 import PublicRoute from "./layouts/PublicRoute/PublicRoute";
-
-import Login from "./pages/LoginPage/Login.component";
 import PageNotFound from "./pages/PageNotFound/PageNotFound.component";
-
 import { history } from "constants/history";
 
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Router,
-  Redirect
-} from "react-router-dom";
+import { BrowserRouter, Switch, Route, Router, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { clear } from "./redux/alert/alert.actions";
 
@@ -34,8 +25,6 @@ class App extends React.Component {
       <BrowserRouter forceRefresh={true}>
         <Router history={history}>
           <Switch>
-            {/* Authentication Pages */}
-            <Route exact path="/login" component={Login} />
             <Route
               exact
               path="/"

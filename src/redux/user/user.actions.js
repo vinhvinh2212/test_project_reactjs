@@ -11,14 +11,13 @@ export const setUserInfo = (userInfo) => {
       .then((res) => {
         let dataLogin = {
           loggedIn: true,
-          user: res.data.user,
-          hospitalCode: userInfo.hospital
+          user: res.data.user
         };
         dispatch({
           type: UserActionTypes.SET_USER,
           payload: dataLogin
         });
-        history.push("/mainmenu");
+        history.push("/");
       })
       .catch((error) => {
         dispatch(danger(error.response.data.message));
@@ -38,15 +37,5 @@ export const logoutUserInfo = (hospitalCode) => {
       .catch((error) => {
         dispatch(danger(error.response.data.message));
       });
-  };
-};
-
-export const setHospital = (hospitalCode) => {
-  return (dispatch) => {
-    console.log("hospitalCode action", hospitalCode);
-    dispatch({
-      type: UserActionTypes.SET_HOSPITAL_CODE,
-      payload: hospitalCode
-    });
   };
 };
