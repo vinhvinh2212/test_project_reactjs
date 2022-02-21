@@ -26,6 +26,7 @@ class BlogPage extends React.Component {
         sort_direction: "desc"
       }
     };
+    this.myRef = React.createRef();
   }
 
   componentDidMount = () => {
@@ -46,6 +47,7 @@ class BlogPage extends React.Component {
     Loading();
     BlogService.getBlogsService(this.state.searchFilter)
       .then((result) => {
+        this.myRef.current.scrollIntoView({ behavior: "smooth" });
         this.setState({ blogsData: result.data.data, pagy: result.data.pagy });
       })
       .catch((err) => {
@@ -70,7 +72,7 @@ class BlogPage extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container" ref={this.myRef}>
         <div className="search">
           <div className="form-row">
             <div className="form-group col-md-4">
